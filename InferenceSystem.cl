@@ -9,7 +9,7 @@
       ((equal (cadr CONDITION) (cadr FAIT))
         (cond
           ;; Si les opérateurs sont les mêmes, ou que l'opérateur du fait est une égalité
-          ((or (equal (car CONDITION) (car FAIT)) (equal (car FAIT) 'equal))
+          ((or (equal (car CONDITION) (car FAIT)) (member (car FAIT) '(equal eq = eql)))
             ;; On utilise la transitivité
             (setq res (eval (list (car CONDITION) (caddr FAIT) (caddr CONDITION))))
           )

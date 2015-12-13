@@ -1,0 +1,8 @@
+La base de faits de l'application a la structure suivante : 
+
+
+((COMPARATEUR1 SYMBOLE1 VALEUR2) (COMPARATEUR2 SYMBOLE2 VALEUR2))
+
+La structure de la base de règles est la suivante :
+
+((FAIT1 FAIT2 FAIT3) NOUVEAU_FAIT)

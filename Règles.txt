@@ -1,0 +1,9 @@
+http://www.etudes-litteraires.com/versification-2.php
+
+SI Forme = Sonnet ET Schéma-rimes = ABBA-ABBA-CCD-EED ALORS Forme = Sonnet marotique
+SI Forme = Sonnet ET Schéma-rimes = ABBA-ABBA-CCD-EDE ALORS Forme = Sonnet forme francaise
+
+
+http://www.etudes-litteraires.com/versification.php
+
+SI vers non régulier ALORS Époque >= 19e s.

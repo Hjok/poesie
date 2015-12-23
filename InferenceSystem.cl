@@ -18,13 +18,20 @@
             ;; On compare en utilisant l'opérateur de la condition
             (setq res (eval (list (car CONDITION) (caddr FAIT) (caddr CONDITION))))
           )
-        
         )
       )
     )
   )
 )
 
+(defun check_user (y)
+(let (res)
+  (format t "is it true? ~a " y)
+  (setq res (read))
+  (cond   ((equal t res) t)
+          ((equal nil res) nil)
+           (t nil))
+))
 
 (defun recherche_but (R F B)
   (let (res)
@@ -36,11 +43,14 @@
       ;;Sinon on cherche parmi les règles (si on trouve un chemin on arrete de chercher)
       (loop for x in R while (not res) do
         (if (compareFacts B (cadr x))  
-          ;; Si le but est staisfait par le résultat d'une règle, on voit si on peut satisfaire les conditions de celle-ci 
+          ;; Si le but est satisfait par le résultat d'une règle, on voit si on peut satisfaire les conditions de celle-ci 
           (let ((res_pro t))
             ;;On recherche donc pour chaque condition si elle est vérifiée, si une condition est fausse, on s'interompt
             (loop for y in (car x) while res_pro do
               (setq res_pro (recherche_but R F y))
+              (if (not res_pro)
+                (setq res_pro (check_user y))
+              )
             )
             ;; Si les conditions sont satisfaites, on note qu'on a trouvé et on sort donc de la boucle de recherche
             (if res_pro (setq res t))

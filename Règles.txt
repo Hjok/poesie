@@ -1,4 +1,4 @@
-Histoire de la poésie française (puf)
+- Histoire de la poésie française (puf)
 
 SI Auteur IN (Ruteboeuf, Meung, de Machaut, de Pisan, Chartier, Charles d'Orléan, Villon) ALORS Mouvement = Moyen-Âge
 SI Auteur IN (Ronsard, du Bellay, Scève, de Saint-Gellais, Marot, Rabelais, du Guillet, Tyard, Baïf, Jodelle, Dorat, Belleau) ALORS Mouvement = Humaniste
@@ -13,18 +13,51 @@ SI Auteur IN (Rimbaud, Verlaine) ALORS Mouvement = Symbolisme
    la plupart du temps. Il est donc préférable de connaître le mouvement en premier lieu, et d'essayer de le déterminer en
    dernier recours à l'aide des règles énoncées ci-dessus. */
 
-SI Époque >= 20e s. IN ALORS Mouvement = Moderne
+SI Mouvement = Moyen-Âge ALORS Époque >= 11e ET Époque <= 15e
+SI Mouvement IN (Humaniste, Baroque) ALORS Époque = 16e
+SI Mouvement = Classicisme ALORS Époque = 17e
+SI Mouvement = Lumières ALORS Époque = 18e
+SI Mouvement IN (Romantisme, Parnasse, Symbolisme) ALORS Époque = 19e
 
-La versification (puf)
+SI Époque >= 20e ALORS Mouvement = Moderne
+SI Mouvement = Moderne ALORS Époque >= 20e
+
+- La versification (puf)
+
+SI Apocope = Rime ET Élision = t ALORS E-caduc = Classique
+SI Apocope IN (Hémistiche, Tout) ALORS E-caduc != Classique
+SI Élision = nil ALORS E-caduc != Classique
+
+SI Hiatus = t ALORS Mouvement != Classique
+SI Hiatus = t ALORS Époque >= 20e
+
+SI Métrique = Décasyllabe ET Rythme = 5+5 ALORS Époque >= 19e
+SI Métrique = Alexandrin ET Rythme = 4+4+4 ALORS Époque >= 19e
+SI Vers = libre ALORS Époque >= 19e
+
+SI Position-rimes = Fin-vers ET Alternance-rimes = t ALORS Rime = Classique
+SI Position-rimes != Fin-vers ALORS Rime != Classique
+SI Alternance-rimes != t ALORS Rime != Classique
+
+SI Position-césure =  ALORS Césure = Classique
+
+SI E-caduc = Classique ET Hiatus = nil ET Rime = Classique ET Césure = Classique ALORS Versification = Classique
+SI E-caduc != Classique ALORS Versification != Classique
+SI Hiatus = nil ALORS Versification != Classique
+SI Rime != Classique ALORS Versification != Classique
+SI Césure != Classique ALORS Versification != Classique
+
+SI Versification = Classique ET Époque >= 17e ET Époque <= 18e ALORS Poésie = t
+
+// À compléter avec les différentes formes (triolet, ballade, etc.)
 
 
-
-http://www.etudes-litteraires.com/versification-2.php
+- http://www.etudes-litteraires.com/versification-2.php
 
 SI Forme = Sonnet ET Schéma-rimes = ABBA-ABBA-CCD-EED ALORS Forme = Sonnet marotique
 SI Forme = Sonnet ET Schéma-rimes = ABBA-ABBA-CCD-EDE ALORS Forme = Sonnet forme francaise
 
 
-http://www.etudes-litteraires.com/versification.php
+- http://www.etudes-litteraires.com/versification.php
 
-SI vers non régulier ALORS Époque >= 19e s.
+SI Vers = non régulier ALORS Époque >= 19e

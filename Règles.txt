@@ -1,9 +1,30 @@
+Histoire de la poésie française (puf)
+
+SI Auteur IN (Ruteboeuf, Meung, de Machaut, de Pisan, Chartier, Charles d'Orléan, Villon) ALORS Mouvement = Moyen-Âge
+SI Auteur IN (Ronsard, du Bellay, Scève, de Saint-Gellais, Marot, Rabelais, du Guillet, Tyard, Baïf, Jodelle, Dorat, Belleau) ALORS Mouvement = Humaniste
+SI Auteur IN (d'Aubigné, de Viau) ALORS Mouvement = Baroque
+SI Auteur IN (Boileau, Malherbe, Racine, La Fontaine) ALORS Mouvement = Classicisme
+SI Auteur IN (Piron, Delille, Parny, Gilbert, Millevoye, Chénier) ALORS Mouvement = Lumières
+SI Auteur IN (Hugo, Lamartine, Vigny, Musset, Nerval, Baudelaire) ALORS Mouvement = Romantisme
+SI Auteur IN (Gautier, Banville, de Lisle, de Heredia) ALORS Mouvement = Parnasse
+SI Auteur IN (Rimbaud, Verlaine) ALORS Mouvement = Symbolisme
+
+/* C'est toujours un peu tendancieux, du fait que les poètes ont au cours de leur vie appartenu à plusieurs mouvements différents
+   la plupart du temps. Il est donc préférable de connaître le mouvement en premier lieu, et d'essayer de le déterminer en
+   dernier recours à l'aide des règles énoncées ci-dessus. */
+
+SI Époque >= 20e s. IN ALORS Mouvement = Moderne
+
+La versification (puf)
+
+
+
 http://www.etudes-litteraires.com/versification-2.php
 
-SI Forme = Sonnet ET Sch�ma-rimes = ABBA-ABBA-CCD-EED ALORS Forme = Sonnet marotique
-SI Forme = Sonnet ET Sch�ma-rimes = ABBA-ABBA-CCD-EDE ALORS Forme = Sonnet forme francaise
+SI Forme = Sonnet ET Schéma-rimes = ABBA-ABBA-CCD-EED ALORS Forme = Sonnet marotique
+SI Forme = Sonnet ET Schéma-rimes = ABBA-ABBA-CCD-EDE ALORS Forme = Sonnet forme francaise
 
 
 http://www.etudes-litteraires.com/versification.php
 
-SI vers non r�gulier ALORS �poque >= 19e s.
+SI vers non régulier ALORS Époque >= 19e s.

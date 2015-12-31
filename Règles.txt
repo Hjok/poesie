@@ -1,3 +1,12 @@
+Structure globale :
+Pour qu'on accepte un poème comme tel, il doit respecter l'un des schémas suivants :
+- suivre les règles de la versification classique (donc écriture en vers) et dater du 17e ou 18e siècle ;
+- être écrit en vers, suivre une forme fixe du moyen-âge et dater du 11e au 15e siècles ;
+- être écrit en vers, suivre une forme fixe de la renaissance et dater du 16e siècle ;
+- être écrit en vers ou en prose et dater d'au moins le 19e siècle.
+
+
+
 - Histoire de la poésie française (puf)
 
 SI Auteur IN (Ruteboeuf, Meung, de Machaut, de Pisan, Chartier, Charles d'Orléan, Villon) ALORS Mouvement = Moyen-Âge
@@ -10,8 +19,8 @@ SI Auteur IN (Gautier, Banville, de Lisle, de Heredia) ALORS Mouvement = Parnass
 SI Auteur IN (Rimbaud, Verlaine) ALORS Mouvement = Symbolisme
 
 /* C'est toujours un peu tendancieux, du fait que les poètes ont au cours de leur vie appartenu à plusieurs mouvements différents
-   la plupart du temps. Il est donc préférable de connaître le mouvement en premier lieu, et d'essayer de le déterminer en
-   dernier recours à l'aide des règles énoncées ci-dessus. */
+la plupart du temps. Il est donc préférable de connaître le mouvement en premier lieu, et d'essayer de le déterminer en
+dernier recours à l'aide des règles énoncées ci-dessus. */
 
 SI Mouvement = Moyen-Âge ALORS Époque >= 11e ET Époque <= 15e
 SI Mouvement IN (Humaniste, Baroque) ALORS Époque = 16e
@@ -35,29 +44,31 @@ SI Métrique = Décasyllabe ET Rythme = 5+5 ALORS Époque >= 19e
 SI Métrique = Alexandrin ET Rythme = 4+4+4 ALORS Époque >= 19e
 SI Vers = libre ALORS Époque >= 19e
 
-SI Position-rimes = Fin-vers ET Alternance-rimes = t ALORS Rime = Classique
+SI Position-rimes = Fin-vers ET Alternance-rimes = t ET Rimes-sing-plur = nil ALORS Rime = Classique
 SI Position-rimes != Fin-vers ALORS Rime != Classique
 SI Alternance-rimes != t ALORS Rime != Classique
+SI Rimes-sing-plur != nil ALORS Rime != Classique
 
-SI Position-césure =  ALORS Césure = Classique
+SI Césure IN (Épique, Enjambante) ALORS Césure != Classique
 
-SI E-caduc = Classique ET Hiatus = nil ET Rime = Classique ET Césure = Classique ALORS Versification = Classique
+SI Majuscule = t ET E-caduc = Classique ET Hiatus = nil ET Rime = Classique ET Césure = Classique ALORS Versification = Classique
+SI Majuscule != Classique ALORS Versification != Classique
 SI E-caduc != Classique ALORS Versification != Classique
 SI Hiatus = nil ALORS Versification != Classique
 SI Rime != Classique ALORS Versification != Classique
 SI Césure != Classique ALORS Versification != Classique
 
-SI Versification = Classique ET Époque >= 17e ET Époque <= 18e ALORS Poésie = t
-
-// À compléter avec les différentes formes (triolet, ballade, etc.)
+SI Écriture = Vers ET Versification = Classique ET Époque IN (17e, 18e) ALORS Poésie = t
 
 
-- http://www.etudes-litteraires.com/versification-2.php
-
-SI Forme = Sonnet ET Schéma-rimes = ABBA-ABBA-CCD-EED ALORS Forme = Sonnet marotique
-SI Forme = Sonnet ET Schéma-rimes = ABBA-ABBA-CCD-EDE ALORS Forme = Sonnet forme francaise
 
 
-- http://www.etudes-litteraires.com/versification.php
+SI Schéma-rimes = ABaAabAB ALORS Forme = Triolet
+SI Schéma-rimes = ABba-abAB-abbaA ALORS Forme = Rondel
+SI Schéma-rimes = aabba-aab-refrain-aabba-refrain ALORS Forme = Rondeau
+SI Schéma-rimes = A1bA2-abA1-abA2-abA1-abA2-abA1A2 ALORS Forme = Villanelle
+SI Schéma-rimes = abba-abba-ccd-eed ALORS Forme = Sonnet marotique
+SI Schéma-rimes = abba-abba-ccd-ede ALORS Forme = Sonnet français
 
-SI Vers = non régulier ALORS Époque >= 19e
+SI Forme IN (Triolet, Rondel, Rondeau, Lai, Virelai, Ballade) ALORS Forme = Médiévale
+SI Forme IN (Ode, Sextine, Villanelle, Sonnet marotique, Sonnet français) ALORS Forme = Renaissance

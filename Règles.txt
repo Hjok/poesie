@@ -1,11 +1,19 @@
 Structure globale :
+
 Pour qu'on accepte un poème comme tel, il doit respecter l'un des schémas suivants :
 - suivre les règles de la versification classique (donc écriture en vers) et dater du 17e ou 18e siècle ;
 - être écrit en vers, suivre une forme fixe du moyen-âge et dater du 11e au 15e siècles ;
 - être écrit en vers, suivre une forme fixe de la renaissance et dater du 16e siècle ;
 - être écrit en vers ou en prose et dater d'au moins le 19e siècle.
 
+Ce qui donne :
 
+R1: SI Écriture = Vers ET Versification = Classique ET Époque IN (17e, 18e) ALORS Poésie = t
+R2: SI Écriture = Vers ET Forme = Médiévale ET Époque IN (11e, 12e, 13e, 14e, 15e) ALORS Poésie = t
+R3: SI Écriture = Vers ET Forme = Renaissance ET Époque = 16e ALORS Poésie = t
+R4: SI Écriture IN (Vers, Prose) ET Époque IN (19e, 20e, 21e) ALORS Poésie = t
+
+/* Proposition pour gérer l'ordre des siècles : les traiter avec les entiers de 11 à 21. */
 
 - Histoire de la poésie française (puf)
 
@@ -22,7 +30,7 @@ SI Auteur IN (Rimbaud, Verlaine) ALORS Mouvement = Symbolisme
 la plupart du temps. Il est donc préférable de connaître le mouvement en premier lieu, et d'essayer de le déterminer en
 dernier recours à l'aide des règles énoncées ci-dessus. */
 
-SI Mouvement = Moyen-Âge ALORS Époque >= 11e ET Époque <= 15e
+SI Mouvement = Moyen-Âge ALORS Époque <= 15e
 SI Mouvement IN (Humaniste, Baroque) ALORS Époque = 16e
 SI Mouvement = Classicisme ALORS Époque = 17e
 SI Mouvement = Lumières ALORS Époque = 18e
@@ -57,8 +65,6 @@ SI E-caduc != Classique ALORS Versification != Classique
 SI Hiatus = nil ALORS Versification != Classique
 SI Rime != Classique ALORS Versification != Classique
 SI Césure != Classique ALORS Versification != Classique
-
-SI Écriture = Vers ET Versification = Classique ET Époque IN (17e, 18e) ALORS Poésie = t
 
 
 

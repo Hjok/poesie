@@ -6,75 +6,55 @@ Pour qu'on accepte un poème comme tel, il doit respecter l'un des schémas suiv
 - être écrit en vers, suivre une forme fixe de la renaissance et dater du 16e siècle ;
 - être écrit en vers ou en prose et dater d'au moins le 19e siècle.
 
-Ce qui donne :
+______________________________________________________________________________________________________________________________________________________________
 
 R1: SI Écriture = Vers ET Versification = Classique ET Époque IN (17e, 18e) ALORS Poésie = t
-R2: SI Écriture = Vers ET Forme = Médiévale ET Époque IN (11e, 12e, 13e, 14e, 15e) ALORS Poésie = t
-R3: SI Écriture = Vers ET Forme = Renaissance ET Époque = 16e ALORS Poésie = t
+R2: SI Écriture = Vers ET Type-forme = Médiévale ET Époque IN (11e, 12e, 13e, 14e, 15e) ALORS Poésie = t
+R3: SI Écriture = Vers ET Type-forme = Renaissance ET Époque = 16e ALORS Poésie = t
 R4: SI Écriture IN (Vers, Prose) ET Époque IN (19e, 20e, 21e) ALORS Poésie = t
+______________________________________________________________________________________________________________________________________________________________
 
-/* Proposition pour gérer l'ordre des siècles : les traiter avec les entiers de 11 à 21. */
-
-- Histoire de la poésie française (puf)
-
-SI Auteur IN (Ruteboeuf, Meung, de Machaut, de Pisan, Chartier, Charles d'Orléan, Villon) ALORS Mouvement = Moyen-Âge
-SI Auteur IN (Ronsard, du Bellay, Scève, de Saint-Gellais, Marot, Rabelais, du Guillet, Tyard, Baïf, Jodelle, Dorat, Belleau) ALORS Mouvement = Humaniste
-SI Auteur IN (d'Aubigné, de Viau) ALORS Mouvement = Baroque
-SI Auteur IN (Boileau, Malherbe, Racine, La Fontaine) ALORS Mouvement = Classicisme
-SI Auteur IN (Piron, Delille, Parny, Gilbert, Millevoye, Chénier) ALORS Mouvement = Lumières
-SI Auteur IN (Hugo, Lamartine, Vigny, Musset, Nerval, Baudelaire) ALORS Mouvement = Romantisme
-SI Auteur IN (Gautier, Banville, de Lisle, de Heredia) ALORS Mouvement = Parnasse
-SI Auteur IN (Rimbaud, Verlaine) ALORS Mouvement = Symbolisme
+RA1: SI Auteur IN (Ruteboeuf, Meung, de Machaut, de Pisan, Chartier, Charles d'Orléan, Villon) ALORS Mouvement = Moyen-Âge
+RA2: SI Auteur IN (Ronsard, du Bellay, Scève, de Saint-Gellais, Marot, Rabelais, du Guillet, Tyard, Baïf, Jodelle, Dorat, Belleau) ALORS Mouvement = Humaniste
+RA3: SI Auteur IN (d'Aubigné, de Viau) ALORS Mouvement = Baroque
+RA4: SI Auteur IN (Boileau, Malherbe, Racine, La Fontaine) ALORS Mouvement = Classicisme
+RA5: SI Auteur IN (Piron, Delille, Parny, Gilbert, Millevoye, Chénier) ALORS Mouvement = Lumières
+RA6: SI Auteur IN (Hugo, Lamartine, Vigny, Musset, Nerval, Baudelaire) ALORS Mouvement = Romantisme
+RA7: SI Auteur IN (Gautier, Banville, de Lisle, de Heredia) ALORS Mouvement = Parnasse
+RA8: SI Auteur IN (Rimbaud, Verlaine) ALORS Mouvement = Symbolisme
 
 /* C'est toujours un peu tendancieux, du fait que les poètes ont au cours de leur vie appartenu à plusieurs mouvements différents
 la plupart du temps. Il est donc préférable de connaître le mouvement en premier lieu, et d'essayer de le déterminer en
 dernier recours à l'aide des règles énoncées ci-dessus. */
 
-SI Mouvement = Moyen-Âge ALORS Époque <= 15e
-SI Mouvement IN (Humaniste, Baroque) ALORS Époque = 16e
-SI Mouvement = Classicisme ALORS Époque = 17e
-SI Mouvement = Lumières ALORS Époque = 18e
-SI Mouvement IN (Romantisme, Parnasse, Symbolisme) ALORS Époque = 19e
+RM1: SI Mouvement = Moyen-Âge ALORS Époque <= 15e
+RM2: SI Mouvement IN (Humaniste, Baroque) ALORS Époque = 16e
+RM3: SI Mouvement = Classicisme ALORS Époque = 17e
+RM4: SI Mouvement = Lumières ALORS Époque = 18e
+RM5: SI Mouvement IN (Romantisme, Parnasse, Symbolisme) ALORS Époque = 19e
+RM6: SI Mouvement = Moderne ALORS Époque >= 20e
 
-SI Époque >= 20e ALORS Mouvement = Moderne
-SI Mouvement = Moderne ALORS Époque >= 20e
 
-- La versification (puf)
+RH: SI Hiatus = t ALORS Époque >= 20e
+RTR: SI Métrique = Alexandrin ET Rythme = 4+4+4 ALORS Époque >= 19e
+RVL: SI Vers = libre ALORS Époque >= 19e
 
-SI Apocope = Rime ET Élision = t ALORS E-caduc = Classique
-SI Apocope IN (Hémistiche, Tout) ALORS E-caduc != Classique
-SI Élision = nil ALORS E-caduc != Classique
 
-SI Hiatus = t ALORS Mouvement != Classique
-SI Hiatus = t ALORS Époque >= 20e
+RE: SI Apocope = Fin-vers ET Élision = t ALORS E-caduc = Classique
+RR: SI Position-rimes = Fin-vers ET Alternance-rimes = t ET Rimes-s-p = nil ALORS Rime = Classique
+RC: SI Césure-épique = nil ET Césure-enjambante = nil ALORS Césure = Classique
 
-SI Métrique = Décasyllabe ET Rythme = 5+5 ALORS Époque >= 19e
-SI Métrique = Alexandrin ET Rythme = 4+4+4 ALORS Époque >= 19e
-SI Vers = libre ALORS Époque >= 19e
 
-SI Position-rimes = Fin-vers ET Alternance-rimes = t ET Rimes-sing-plur = nil ALORS Rime = Classique
-SI Position-rimes != Fin-vers ALORS Rime != Classique
-SI Alternance-rimes != t ALORS Rime != Classique
-SI Rimes-sing-plur != nil ALORS Rime != Classique
-
-SI Césure IN (Épique, Enjambante) ALORS Césure != Classique
-
-SI Majuscule = t ET E-caduc = Classique ET Hiatus = nil ET Rime = Classique ET Césure = Classique ALORS Versification = Classique
-SI Majuscule != Classique ALORS Versification != Classique
-SI E-caduc != Classique ALORS Versification != Classique
-SI Hiatus = nil ALORS Versification != Classique
-SI Rime != Classique ALORS Versification != Classique
-SI Césure != Classique ALORS Versification != Classique
+RV: SI Majuscule = t ET E-caduc = Classique ET Hiatus = nil ET Rime = Classique ET Césure = Classique ALORS Versification = Classique
 
 
 
+RShR1: SI Schéma-rimes = ABaAabAB ALORS Forme = Triolet
+RShR2: SI Schéma-rimes = ABba-abAB-abbaA ALORS Forme = Rondel
+RShR3: SI Schéma-rimes = aabba-aab-refrain-aabba-refrain ALORS Forme = Rondeau
+RShR4: SI Schéma-rimes = A1bA2-abA1-abA2-abA1-abA2-abA1A2 ALORS Forme = Villanelle
+RShR5: SI Schéma-rimes = abba-abba-ccd-eed ALORS Forme = Sonnet marotique
+RShR6: SI Schéma-rimes = abba-abba-ccd-ede ALORS Forme = Sonnet français
 
-SI Schéma-rimes = ABaAabAB ALORS Forme = Triolet
-SI Schéma-rimes = ABba-abAB-abbaA ALORS Forme = Rondel
-SI Schéma-rimes = aabba-aab-refrain-aabba-refrain ALORS Forme = Rondeau
-SI Schéma-rimes = A1bA2-abA1-abA2-abA1-abA2-abA1A2 ALORS Forme = Villanelle
-SI Schéma-rimes = abba-abba-ccd-eed ALORS Forme = Sonnet marotique
-SI Schéma-rimes = abba-abba-ccd-ede ALORS Forme = Sonnet français
-
-SI Forme IN (Triolet, Rondel, Rondeau, Lai, Virelai, Ballade) ALORS Forme = Médiévale
-SI Forme IN (Ode, Sextine, Villanelle, Sonnet marotique, Sonnet français) ALORS Forme = Renaissance
+RFM: SI Forme IN (Triolet, Rondel, Rondeau, Lai, Virelai, Ballade) ALORS Type-forme = Médiévale
+RFR: SI Forme IN (Ode, Sextine, Villanelle, Sonnet marotique, Sonnet français) ALORS Type-forme = Renaissance

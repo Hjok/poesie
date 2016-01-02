@@ -9,14 +9,14 @@
       (((in ECRITURE ("Vers" "Prose")) (in EPOQUE (19 20 21))) (eq POESIE t))
 
       ; RA1 - RA8
-      (((in AUTEUR ("Ruteboeuf", "Meung", "de Machaut", "de Pisan", "Chartier", "Charles d'Orléan", "Villon"))) (equal MOUVEMENT "Moyen-Âge"))
-      (((in AUTEUR ("Ronsard", "du Bellay", "Scève", "de Saint-Gellais", "Marot", "Rabelais", "du Guillet", "Tyard", "Baïf", "Jodelle", "Dorat", "Belleau"))) (equal MOUVEMENT "Humaniste"))
-      (((in AUTEUR ("d'Aubigné", "de Viau"))) (equal MOUVEMENT "Baroque"))
-      (((in AUTEUR ("Boileau", "Malherbe", "Racine", "La Fontaine"))) (equal MOUVEMENT "Classicisme"))
-      (((in AUTEUR ("Piron", "Delille", "Parny", "Gilbert", "Millevoye", "Chénier"))) (equal MOUVEMENT "Lumières"))
-      (((in AUTEUR ("Hugo", "Lamartine", "Vigny", "Musset", "Nerval", "Baudelaire"))) (equal MOUVEMENT "Romantisme"))
-      (((in AUTEUR ("Gautier", "Banville", "de Lisle", "de Heredia"))) (equal MOUVEMENT "Parnasse"))
-      (((in AUTEUR ("Rimbaud", "Verlaine"))) (equal MOUVEMENT "Symbolisme"))
+      (((in AUTEUR ("Ruteboeuf" "Meung" "de Machaut" "de Pisan" "Chartier" "Charles d'Orléan" "Villon"))) (equal MOUVEMENT "Moyen-Âge"))
+      (((in AUTEUR ("Ronsard" "du Bellay" "Scève" "de Saint-Gellais" "Marot" "Rabelais" "du Guillet" "Tyard" "Baïf" "Jodelle" "Dorat" "Belleau"))) (equal MOUVEMENT "Humaniste"))
+      (((in AUTEUR ("d'Aubigné" "de Viau"))) (equal MOUVEMENT "Baroque"))
+      (((in AUTEUR ("Boileau" "Malherbe" "Racine" "La Fontaine"))) (equal MOUVEMENT "Classicisme"))
+      (((in AUTEUR ("Piron" "Delille" "Parny" "Gilbert" "Millevoye" "Chénier"))) (equal MOUVEMENT "Lumières"))
+      (((in AUTEUR ("Hugo" "Lamartine" "Vigny" "Musset" "Nerval" "Baudelaire"))) (equal MOUVEMENT "Romantisme"))
+      (((in AUTEUR ("Gautier" "Banville" "de Lisle" "de Heredia"))) (equal MOUVEMENT "Parnasse"))
+      (((in AUTEUR ("Rimbaud" "Verlaine"))) (equal MOUVEMENT "Symbolisme"))
       
       ; RM1 - RM6
       (((equal MOUVEMENT "Moyen-Âge")) (<= EPOQUE 15))
@@ -48,7 +48,7 @@
       (((equal SCHEMA-RIMES "abba-abba-ccd-ede")) (equal FORME "Sonnet français"))
       
       ; RFM, RFR
-      (((in FORME ("Triolet", "Rondel", "Rondeau", "Lai", "Virelai", "Ballade"))) (equal TYPE-FORME "Médiévale"))
-      (((in FORME ("Ode", "Sextine", "Villanelle", "Sonnet marotique", "Sonnet français"))) (equal TYPE-FORME "Renaissance"))
+      (((in FORME ("Triolet" "Rondel" "Rondeau" "Lai" "Virelai" "Ballade"))) (equal TYPE-FORME "Médiévale"))
+      (((in FORME ("Ode" "Sextine" "Villanelle" "Sonnet marotique" "Sonnet français"))) (equal TYPE-FORME "Renaissance"))
     )
 )

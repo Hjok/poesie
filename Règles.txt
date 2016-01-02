@@ -1,9 +1,60 @@
-http://www.etudes-litteraires.com/versification-2.php
+Structure globale :
 
-SI Forme = Sonnet ET Sch�ma-rimes = ABBA-ABBA-CCD-EED ALORS Forme = Sonnet marotique
-SI Forme = Sonnet ET Sch�ma-rimes = ABBA-ABBA-CCD-EDE ALORS Forme = Sonnet forme francaise
+Pour qu'on accepte un poème comme tel, il doit respecter l'un des schémas suivants :
+- suivre les règles de la versification classique (donc écriture en vers) et dater du 17e ou 18e siècle ;
+- être écrit en vers, suivre une forme fixe du moyen-âge et dater du 11e au 15e siècles ;
+- être écrit en vers, suivre une forme fixe de la renaissance et dater du 16e siècle ;
+- être écrit en vers ou en prose et dater d'au moins le 19e siècle.
+
+______________________________________________________________________________________________________________________________________________________________
+
+R1: SI Écriture = Vers ET Versification = Classique ET Époque IN (17e, 18e) ALORS Poésie = t
+R2: SI Écriture = Vers ET Type-forme = Médiévale ET Époque IN (11e, 12e, 13e, 14e, 15e) ALORS Poésie = t
+R3: SI Écriture = Vers ET Type-forme = Renaissance ET Époque = 16e ALORS Poésie = t
+R4: SI Écriture IN (Vers, Prose) ET Époque IN (19e, 20e, 21e) ALORS Poésie = t
+______________________________________________________________________________________________________________________________________________________________
+
+RA1: SI Auteur IN (Ruteboeuf, Meung, de Machaut, de Pisan, Chartier, Charles d'Orléan, Villon) ALORS Mouvement = Moyen-Âge
+RA2: SI Auteur IN (Ronsard, du Bellay, Scève, de Saint-Gellais, Marot, Rabelais, du Guillet, Tyard, Baïf, Jodelle, Dorat, Belleau) ALORS Mouvement = Humaniste
+RA3: SI Auteur IN (d'Aubigné, de Viau) ALORS Mouvement = Baroque
+RA4: SI Auteur IN (Boileau, Malherbe, Racine, La Fontaine) ALORS Mouvement = Classicisme
+RA5: SI Auteur IN (Piron, Delille, Parny, Gilbert, Millevoye, Chénier) ALORS Mouvement = Lumières
+RA6: SI Auteur IN (Hugo, Lamartine, Vigny, Musset, Nerval, Baudelaire) ALORS Mouvement = Romantisme
+RA7: SI Auteur IN (Gautier, Banville, de Lisle, de Heredia) ALORS Mouvement = Parnasse
+RA8: SI Auteur IN (Rimbaud, Verlaine) ALORS Mouvement = Symbolisme
+
+/* C'est toujours un peu tendancieux, du fait que les poètes ont au cours de leur vie appartenu à plusieurs mouvements différents
+la plupart du temps. Il est donc préférable de connaître le mouvement en premier lieu, et d'essayer de le déterminer en
+dernier recours à l'aide des règles énoncées ci-dessus. */
+
+RM1: SI Mouvement = Moyen-Âge ALORS Époque <= 15e
+RM2: SI Mouvement IN (Humaniste, Baroque) ALORS Époque = 16e
+RM3: SI Mouvement = Classicisme ALORS Époque = 17e
+RM4: SI Mouvement = Lumières ALORS Époque = 18e
+RM5: SI Mouvement IN (Romantisme, Parnasse, Symbolisme) ALORS Époque = 19e
+RM6: SI Mouvement = Moderne ALORS Époque >= 20e
 
 
-http://www.etudes-litteraires.com/versification.php
+RH: SI Hiatus = t ALORS Époque >= 20e
+RTR: SI Métrique = Alexandrin ET Rythme = 4+4+4 ALORS Époque >= 19e
+RVL: SI Vers = libre ALORS Époque >= 19e
 
-SI vers non r�gulier ALORS �poque >= 19e s.
+
+RE: SI Apocope = Fin-vers ET Élision = t ALORS E-caduc = Classique
+RR: SI Position-rimes = Fin-vers ET Alternance-rimes = t ET Rimes-s-p = nil ALORS Rime = Classique
+RC: SI Césure-épique = nil ET Césure-enjambante = nil ALORS Césure = Classique
+
+
+RV: SI Majuscule = t ET E-caduc = Classique ET Hiatus = nil ET Rime = Classique ET Césure = Classique ALORS Versification = Classique
+
+
+
+RShR1: SI Schéma-rimes = ABaAabAB ALORS Forme = Triolet
+RShR2: SI Schéma-rimes = ABba-abAB-abbaA ALORS Forme = Rondel
+RShR3: SI Schéma-rimes = aabba-aab-refrain-aabba-refrain ALORS Forme = Rondeau
+RShR4: SI Schéma-rimes = A1bA2-abA1-abA2-abA1-abA2-abA1A2 ALORS Forme = Villanelle
+RShR5: SI Schéma-rimes = abba-abba-ccd-eed ALORS Forme = Sonnet marotique
+RShR6: SI Schéma-rimes = abba-abba-ccd-ede ALORS Forme = Sonnet français
+
+RFM: SI Forme IN (Triolet, Rondel, Rondeau, Lai, Virelai, Ballade) ALORS Type-forme = Médiévale
+RFR: SI Forme IN (Ode, Sextine, Villanelle, Sonnet marotique, Sonnet français) ALORS Type-forme = Renaissance

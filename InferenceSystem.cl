@@ -24,40 +24,43 @@
   )
 )
 
-(defun check_user (y)
-(let (res)
-  (format t "is it true? ~a " y)
-  (setq res (read))
-  (cond   ((equal t res) t)
-          ((equal nil res) nil)
-           (t nil))
-))
-
-(defun recherche_but (R F B)
+(defun check_user (but)
   (let (res)
-    ;;Si le but fait partie des faits, on renvoie vrai
-    (loop for x in F while (not res) do
-      (setq res (compareFacts B x))
-    )
-    (if (not res)
-      ;;Sinon on cherche parmi les règles (si on trouve un chemin on arrete de chercher)
-      (loop for x in R while (not res) do
-        (if (compareFacts B (cadr x))  
-          ;; Si le but est satisfait par le résultat d'une règle, on voit si on peut satisfaire les conditions de celle-ci 
-          (let ((res_pro t))
-            ;;On recherche donc pour chaque condition si elle est vérifiée, si une condition est fausse, on s'interompt
-            (loop for y in (car x) while res_pro do
-              (setq res_pro (recherche_but R F y))
-              (if (not res_pro)
-                (setq res_pro (check_user y))
+    (format t "is it true? (t/nil/?) ~a " but)
+    (setq res (read))
+    (cond   ((equal t res)
+             (push but *facts*)
+             1)
+          ((equal nil res) nil)
+          ((equal '? res) 0))
+    ))
+
+(defun recherche_but (B)
+  (format t "but recherché : ~a~%" B)
+  (format t "faits : ~a~%" *facts*)
+  (let (res rep)
+    ;; Si le but fait partie des faits, on renvoie vrai
+    (loop for x in *facts* while (not res) do
+          (setq res (compareFacts B x)))
+    (unless res
+      ;; Sinon on demande à l'utilisateur
+      (if (eql (setq rep (check_user B)) 1) (setq res t))
+      ;; Si oui, res vaut t
+      ;; Si non, on passe (but inatteignable)
+      ;; S'il ne sait pas, on cherche parmi les règles (si on trouve un chemin on arrete de chercher)
+      (loop for x in *rules* while (and (not res) rep) do
+            (if (compareFacts B (cadr x))  
+                ;; Si le but est satisfait par le résultat d'une règle, on voit si on peut satisfaire les conditions de celle-ci 
+                (let ((res_pro t))
+                  ;; On recherche donc pour chaque condition si elle est vérifiée, si une condition est fausse, on s'interompt
+                  (loop for y in (car x) while res_pro do
+                        (setq res_pro (recherche_but y)))
+                  ;; Si les conditions sont satisfaites, on note qu'on a trouvé et on sort donc de la boucle de recherche
+                  (if res_pro (setq res t))
+                  )
               )
             )
-            ;; Si les conditions sont satisfaites, on note qu'on a trouvé et on sort donc de la boucle de recherche
-            (if res_pro (setq res t))
-          )
-        )
       )
-    )
     res
+    )
   )
-)

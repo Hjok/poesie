@@ -1,10 +1,10 @@
 (setq *rules*
       '(
         ; R1 - R4
-        (((equal ECRITURE "Vers") (equal VERSIFICATION "Classique") (in EPOQUE (17 18))) (eq POESIE t))
-        (((equal ECRITURE "Vers") (equal TYPE-FORME "Médiévale") (in EPOQUE (11 12 13 14 15))) (eq POESIE t))
+        (((equal ECRITURE "Vers") (equal VERSIFICATION "Classique") (in EPOQUE '(17 18))) (eq POESIE t))
+        (((equal ECRITURE "Vers") (equal TYPE-FORME "Médiévale") (in EPOQUE '(11 12 13 14 15))) (eq POESIE t))
         (((equal ECRITURE "Vers") (equal TYPE-FORME "Renaissance") (= EPOQUE 16)) (eq POESIE t))
-        (((in ECRITURE '("Vers" "Prose")) (in EPOQUE (19 20 21))) (eq POESIE t))
+        (((in ECRITURE '("Vers" "Prose")) (in EPOQUE '(19 20 21))) (eq POESIE t))
         
         ; RA1 - RA8
         (((in AUTEUR '("Ruteboeuf" "Meung" "de Machaut" "de Pisan" "Chartier" "Charles d'Orléan" "Villon"))) (equal MOUVEMENT "Moyen-Âge"))

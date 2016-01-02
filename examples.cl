@@ -9,7 +9,7 @@
 )
 (setq facts
     '(
-        ;;(= ANNEE 1850)
+        (= ANNEE 1850)
         (equal FORME "Vers")
         ;;(equal AUTEUR "Hugo")
     )

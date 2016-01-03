@@ -2,5 +2,17 @@
     (not (equal a b))
 )
 (defun in (param liste)
-    (member param liste :test #'equal)
+	(let ((res t))
+		(cond 
+			((listp param)
+				(loop for x in param while res do
+					(setq res (in x liste))
+				)
+			)
+			(t (setq res (member param liste :test #'equal)))
+		)
+	res)
+)
+(defun notin (param liste)
+	(not (in param liste))
 )

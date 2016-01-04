@@ -8,8 +8,8 @@
       ;;Si la condition porte sur le même symbole que le fait
       ((equal (cadr CONDITION) (cadr FAIT))
         (cond
-          ;; Si les opérateurs sont les mêmes, ou que l'opérateur du fait est une égalité et que la condition n'est pas une exclusion
-          ((or (equal (car CONDITION) (car FAIT)) (and (member (car FAIT) '(equal eq = eql)) (not (eq (car CONDITION) 'notin))))
+          ;; Si les opérateurs sont les mêmes (et pas !=), ou que l'opérateur du fait est une égalité et que la condition n'est pas une exclusion
+          ((or (and (equal (car CONDITION) (car FAIT)) (!= (car CONDITION) '!=)) (and (member (car FAIT) '(equal eq = eql)) (not (eq (car CONDITION) 'notin))))
             ;; On utilise la transitivité
             (setq res (eval (list (car CONDITION) (caddr FAIT) (caddr CONDITION))))
             )
